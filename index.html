@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miami Friseur Gießen — Barbershop & Hair Cuts</title>
+<meta name="description" content="Miami Friseur Gießen — Professionelle Haarschnitte, Fades, Beard Styling. Neuen Bäue 13, Gießen. Jetzt Termin buchen!">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@200;300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden;scroll-behavior:smooth}
+:root{
+  --bg:#080808;--bg2:#0f0f0f;--bg3:#151515;--bg4:#1a1a1a;
+  --t1:#f5f0e8;--t2:rgba(245,240,232,.6);--t3:rgba(245,240,232,.3);--t4:rgba(245,240,232,.08);
+  --gold:#c9a84c;--gold2:#e0bb6a;--gold-l:rgba(201,168,76,.12);--gold-ll:rgba(201,168,76,.06);
+  --line:rgba(245,240,232,.1);--line2:rgba(245,240,232,.05);
+}
+body{background:var(--bg);color:var(--t1);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6}
+
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:2000;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transition:opacity 1s,transform 1.2s cubic-bezier(.16,1,.3,1)}
+#loader.out{opacity:0;transform:scale(1.04);pointer-events:none}
+.l-logo{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,12vw,88px);letter-spacing:.2em;color:#fff;opacity:0;animation:up .8s .2s cubic-bezier(.16,1,.3,1) forwards;text-align:center}
+.l-logo span{color:var(--gold)}
+.l-sub{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.7);opacity:0;animation:up .6s .7s both;font-family:'DM Mono',monospace}
+.l-bar-bg{width:min(240px,55vw);height:1px;background:rgba(201,168,76,.15)}
+.l-bar{height:1px;background:var(--gold);width:0%;transition:width .06s linear;box-shadow:0 0 8px rgba(201,168,76,.5)}
+.l-pct{font-family:'DM Mono',monospace;font-size:10px;color:rgba(245,240,232,.2);letter-spacing:.2em;opacity:0;animation:up .5s .8s both}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;transition:all .4s}
+nav.s{background:rgba(8,8,8,.95);backdrop-filter:blur(20px);border-bottom:.5px solid var(--line)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.15em;color:var(--t1);text-decoration:none}
+.logo span{color:var(--gold)}
+.nav-r{display:flex;gap:2rem;align-items:center}
+.nav-r a{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);text-decoration:none;transition:color .2s}
+.nav-r a:hover{color:var(--gold)}
+.nav-btn{font-size:10px;letter-spacing:.15em;text-transform:uppercase;background:var(--gold);color:#000;padding:.6rem 1.4rem;font-weight:600;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+.nav-btn:hover{background:var(--gold2)}
+.hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hbg span{display:block;width:20px;height:1px;background:var(--t1)}
+.mm{display:none;position:fixed;inset:0;z-index:190;background:rgba(0,0,0,.98);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mm.open{display:flex}
+.mm a{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:.1em;color:#fff;text-decoration:none;transition:color .2s}
+.mm a:hover{color:var(--gold)}
+.mm-x{position:absolute;top:1.5rem;right:1.5rem;font-size:20px;color:var(--t3);background:none;border:none;cursor:pointer}
+
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 1.5rem 3.5rem;position:relative;overflow:hidden;background:#000}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#0a0805 0%,#000 50%,#050a0a 100%)}
+.hero-pattern{position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:20px 20px}
+.hero-glow{position:absolute;bottom:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 65%);pointer-events:none}
+.hero-scissors{position:absolute;top:2rem;right:1.5rem;font-size:clamp(80px,20vw,200px);opacity:.04;transform:rotate(-30deg);pointer-events:none;user-select:none}
+.hero-inner{position:relative;z-index:1}
+.hero-tag{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem;opacity:0;animation:up .7s 1.8s both}
+.hero-tag::before{content:'';width:24px;height:.5px;background:var(--gold)}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,18vw,180px);letter-spacing:.04em;line-height:.85;color:var(--t1)}
+.hw{display:inline-block;transform:translateY(110%);opacity:0}
+.hw.a1{animation:wUp .85s 1.9s cubic-bezier(.16,1,.3,1) forwards}
+.hw.a2{animation:wUp .85s 2.05s cubic-bezier(.16,1,.3,1) forwards}
+.hw.gold{color:var(--gold)}
+@keyframes wUp{to{transform:translateY(0);opacity:1}}
+.hero-sub{font-size:clamp(13px,2.5vw,16px);color:var(--t2);margin:1.25rem 0 2.5rem;line-height:1.7;max-width:420px;opacity:0;animation:up .8s 2.2s both}
+.hero-btns{display:flex;gap:.75rem;flex-wrap:wrap;opacity:0;animation:up .8s 2.35s both}
+.btn-gold{display:inline-flex;align-items:center;gap:.6rem;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;background:var(--gold);color:#000;padding:.9rem 2rem;text-decoration:none;transition:all .25s;border:none;cursor:pointer}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px)}
+.btn-ol{display:inline-flex;align-items:center;gap:.6rem;font-size:11px;letter-spacing:.15em;text-transform:uppercase;border:.5px solid var(--line);color:var(--t3);padding:.9rem 2rem;text-decoration:none;transition:all .25s}
+.btn-ol:hover{border-color:var(--gold);color:var(--gold)}
+.hero-stats{display:flex;gap:0;margin-top:4rem;padding-top:2rem;border-top:.5px solid var(--line);opacity:0;animation:up .8s 2.5s both}
+.hs{flex:1;text-align:center;border-right:.5px solid var(--line)}
+.hs:last-child{border-right:none}
+.hs-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,5vw,44px);letter-spacing:.04em;line-height:1;color:var(--gold)}
+.hs-l{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-top:.2rem}
+
+/* TICKER */
+.ticker{border-top:.5px solid var(--line);border-bottom:.5px solid var(--line);overflow:hidden;padding:.7rem 0;background:var(--bg2)}
+.ti{display:inline-flex;white-space:nowrap;animation:tick 20s linear infinite}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ti-i{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,4vw,28px);letter-spacing:.1em;color:rgba(245,240,232,.07);padding:0 2rem;display:inline-flex;align-items:center;gap:2rem}
+.ti-i.g{color:rgba(201,168,76,.25)}
+.ti-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.4}
+
+/* REVEAL */
+.rev{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.rev.on{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
+
+/* SECTION */
+.sec{padding:5.5rem 1.5rem;position:relative}
+.sec-alt{background:var(--bg2)}
+.sec-dark{background:#030303}
+.eyebrow{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;display:flex;align-items:center;gap:.75rem}
+.eyebrow::before{content:'';width:20px;height:.5px;background:var(--gold)}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,9vw,80px);letter-spacing:.04em;line-height:.9;color:var(--t1)}
+.sec-h span{color:var(--gold)}
+.sec-sub{font-size:13px;color:var(--t2);max-width:440px;margin-top:.75rem;line-height:1.75}
+
+/* SERVICES */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:3rem}
+.svc{background:var(--bg);padding:2rem 1.75rem;position:relative;overflow:hidden;transition:background .3s;cursor:default}
+.svc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.svc:hover{background:var(--bg2)}
+.svc:hover::before{transform:scaleX(1)}
+.svc-icon{font-size:24px;margin-bottom:1.1rem;display:block;filter:grayscale(1);transition:filter .3s}
+.svc:hover .svc-icon{filter:none}
+.svc-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,4vw,28px);letter-spacing:.06em;color:var(--t1);margin-bottom:.4rem;transition:color .3s}
+.svc:hover .svc-name{color:var(--gold)}
+.svc-desc{font-size:12px;color:var(--t2);line-height:1.65}
+.svc-price{font-family:'DM Mono',monospace;font-size:13px;color:var(--gold);margin-top:1rem;font-weight:400}
+.svc.featured{background:var(--gold);border:none}
+.svc.featured::before{display:none}
+.svc.featured .svc-name,.svc.featured .svc-desc,.svc.featured .svc-price{color:#000}
+.svc.featured .svc-icon{filter:none}
+
+/* BOOKING */
+.booking-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-top:3rem}
+.booking-info{}
+.booking-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,7vw,64px);letter-spacing:.04em;line-height:.9;color:var(--t1);margin-bottom:1.25rem}
+.booking-title span{color:var(--gold)}
+.booking-steps{display:flex;flex-direction:column;gap:1.25rem;margin-bottom:2rem}
+.b-step{display:grid;grid-template-columns:36px 1fr;gap:1rem;align-items:start}
+.b-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.15em;padding-top:2px}
+.b-text{font-size:13px;color:var(--t2);line-height:1.6}
+.b-text strong{color:var(--t1);font-weight:500}
+
+/* CALENDAR WIDGET */
+.cal-widget{background:var(--bg2);border:.5px solid var(--line);padding:1.75rem}
+.cal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+.cal-month{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.08em;color:var(--t1)}
+.cal-nav{display:flex;gap:.5rem}
+.cal-nav button{width:32px;height:32px;background:none;border:.5px solid var(--line);color:var(--t3);cursor:pointer;transition:all .2s;font-size:14px}
+.cal-nav button:hover{border-color:var(--gold);color:var(--gold)}
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:2px}
+.cal-day-label{text-align:center;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--t3);padding:.4rem 0}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:400;color:var(--t2);cursor:pointer;transition:all .2s;border:.5px solid transparent;font-family:'DM Mono',monospace}
+.cal-cell:hover{border-color:var(--gold);color:var(--gold)}
+.cal-cell.today{background:var(--gold-ll);border-color:rgba(201,168,76,.3);color:var(--gold)}
+.cal-cell.selected{background:var(--gold);color:#000;font-weight:600}
+.cal-cell.empty{cursor:default}
+.cal-cell.closed{opacity:.2;cursor:not-allowed}
+.cal-cell.closed:hover{border-color:transparent;color:var(--t2)}
+
+/* TIME SLOTS */
+.time-wrap{margin-top:1.25rem}
+.time-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:.75rem}
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem}
+.time-slot{padding:.45rem;text-align:center;font-family:'DM Mono',monospace;font-size:10px;border:.5px solid var(--line);color:var(--t3);cursor:pointer;transition:all .2s}
+.time-slot:hover{border-color:var(--gold);color:var(--gold)}
+.time-slot.selected{background:var(--gold);border-color:var(--gold);color:#000;font-weight:600}
+.time-slot.booked{opacity:.25;cursor:not-allowed}
+.time-slot.booked:hover{border-color:var(--line);color:var(--t3)}
+
+/* BOOKING FORM */
+.book-form{margin-top:1.25rem;display:flex;flex-direction:column;gap:.75rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.form-input{background:var(--bg);border:.5px solid var(--line);color:var(--t1);font-size:13px;padding:.75rem 1rem;font-family:'Inter',sans-serif;font-weight:300;outline:none;transition:border-color .2s;width:100%}
+.form-input:focus{border-color:var(--gold)}
+.form-input::placeholder{color:var(--t3)}
+.form-select{background:var(--bg);border:.5px solid var(--line);color:var(--t2);font-size:13px;padding:.75rem 1rem;font-family:'Inter',sans-serif;font-weight:300;outline:none;transition:border-color .2s;width:100%;appearance:none;cursor:pointer}
+.form-select:focus{border-color:var(--gold)}
+.book-btn{background:var(--gold);color:#000;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;padding:1rem;border:none;cursor:pointer;transition:all .25s;font-family:'Inter',sans-serif;margin-top:.25rem}
+.book-btn:hover{background:var(--gold2)}
+.book-note{font-size:10px;color:var(--t3);text-align:center;margin-top:.5rem}
+
+/* INSTAGRAM FEED */
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:2.5rem}
+.ig-item{aspect-ratio:1;background:var(--bg3);overflow:hidden;position:relative;cursor:pointer}
+.ig-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.16,1,.3,1),filter .4s}
+.ig-item:hover img{transform:scale(1.06);filter:brightness(.7)}
+.ig-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;background:rgba(0,0,0,.3)}
+.ig-item:hover .ig-overlay{opacity:1}
+.ig-overlay svg{width:28px;height:28px;fill:#fff}
+.ig-placeholder{width:100%;height:100%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:28px;opacity:.15}
+.ig-follow{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-top:1.5rem}
+.ig-follow a{display:inline-flex;align-items:center;gap:.6rem;font-size:11px;letter-spacing:.15em;text-transform:uppercase;border:.5px solid var(--line);color:var(--t2);padding:.75rem 1.75rem;text-decoration:none;transition:all .25s}
+.ig-follow a:hover{border-color:var(--gold);color:var(--gold)}
+.ig-count{font-size:12px;color:var(--t3)}
+
+/* MAP + INFO */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:3rem}
+.info-map{background:var(--bg3);min-height:280px;position:relative;overflow:hidden}
+.info-map iframe{width:100%;height:100%;border:none;filter:grayscale(1) invert(1) contrast(.85);min-height:280px}
+.info-details{background:var(--bg);padding:2.5rem 2rem}
+.info-item{margin-bottom:1.75rem}
+.info-label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.info-val{font-size:14px;color:var(--t1);font-weight:300;line-height:1.6}
+.info-val a{color:var(--t1);text-decoration:none;border-bottom:.5px solid var(--line);transition:border-color .2s}
+.info-val a:hover{border-color:var(--gold);color:var(--gold)}
+.hours-grid{display:flex;flex-direction:column;gap:.4rem}
+.hour-row{display:flex;justify-content:space-between;font-size:12px;color:var(--t2)}
+.hour-row.today-row{color:var(--gold)}
+.hour-row .day{color:var(--t3);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.closed-badge{font-size:10px;color:var(--t3)}
+
+/* SPECIAL OFFER */
+.offer-banner{background:var(--gold);padding:1.75rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.offer-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,5vw,36px);letter-spacing:.06em;color:#000;line-height:1}
+.offer-sub{font-size:12px;color:rgba(0,0,0,.6);margin-top:.2rem}
+.offer-price{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,8vw,64px);letter-spacing:.04em;color:#000;line-height:1}
+.offer-price span{font-size:18px;vertical-align:super}
+
+/* TOAST */
+#toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);z-index:700;background:var(--gold);color:#000;font-size:12px;font-weight:600;letter-spacing:.08em;padding:.85rem 2rem;transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .4s;opacity:0;white-space:nowrap}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* FOOTER */
+footer{background:#000;border-top:.5px solid var(--line);padding:2.5rem 1.5rem 2rem}
+.foot-top{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem}
+.f-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.15em;color:var(--t1)}
+.f-logo span{color:var(--gold)}
+.f-desc{font-size:12px;color:var(--t3);margin-top:.4rem;line-height:1.6}
+.f-col-title{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.85rem}
+.f-links{display:flex;flex-direction:column;gap:.5rem}
+.f-links a{font-size:12px;color:var(--t3);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--t1)}
+.foot-bottom{border-top:.5px solid var(--line2);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;font-size:10px;color:rgba(245,240,232,.2)}
+.foot-bottom a{color:inherit;text-decoration:none}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:.9rem 1.25rem}
+  .nav-r a,.nav-btn{display:none}
+  .hbg{display:flex}
+  .sec{padding:3.5rem 1.25rem}
+  .hero{padding:6rem 1.25rem 3rem}
+  .svc-grid{grid-template-columns:1fr}
+  .booking-wrap{grid-template-columns:1fr;gap:2.5rem}
+  .ig-grid{grid-template-columns:repeat(3,1fr)}
+  .info-grid{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr}
+  .foot-bottom{flex-direction:column;align-items:flex-start}
+  .form-row{grid-template-columns:1fr}
+  .time-grid{grid-template-columns:repeat(3,1fr)}
+  .hero-stats{flex-wrap:wrap}
+  .hs{min-width:33%}
+}
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="l-logo">MIAMI<br><span>FRISEUR</span></div>
+  <div class="l-sub">Gießen · Barbershop</div>
+  <div class="l-bar-bg"><div class="l-bar" id="lBar"></div></div>
+  <div class="l-pct" id="lPct">0%</div>
+</div>
+
+<nav id="nav">
+  <a href="#" class="logo">MIAMI <span>FRISEUR</span></a>
+  <div class="nav-r">
+    <a href="#services">Services</a>
+    <a href="#termin">Termin</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="#termin" class="nav-btn">Termin buchen</a>
+  </div>
+  <div class="hbg" onclick="document.getElementById('mm').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mm" id="mm">
+  <button class="mm-x" onclick="document.getElementById('mm').classList.remove('open')">✕</button>
+  <a href="#services" onclick="document.getElementById('mm').classList.remove('open')">Services</a>
+  <a href="#termin" onclick="document.getElementById('mm').classList.remove('open')">Termin</a>
+  <a href="#galerie" onclick="document.getElementById('mm').classList.remove('open')">Galerie</a>
+  <a href="#kontakt" onclick="document.getElementById('mm').classList.remove('open')">Kontakt</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-scissors">✂️</div>
+  <div class="hero-inner">
+    <div class="hero-tag">Barbershop · Gießen seit 2019</div>
+    <h1 class="hero-h1">
+      <span class="hw a1">MIAMI</span><br>
+      <span class="hw a2 gold">FRISEUR.</span>
+    </h1>
+    <p class="hero-sub">Professionelle Haarschnitte, Fades & Beard Styling in Gießen. Dein Style. Dein Statement.</p>
+    <div class="hero-btns">
+      <a href="#termin" class="btn-gold">Termin buchen →</a>
+      <a href="#services" class="btn-ol">Services ansehen</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-n">39K</div><div class="hs-l">Follower</div></div>
+      <div class="hs"><div class="hs-n">2019</div><div class="hs-l">Gegründet</div></div>
+      <div class="hs"><div class="hs-n">14€</div><div class="hs-l">Mo. Schüler</div></div>
+      <div class="hs"><div class="hs-n">5★</div><div class="hs-l">Rating</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ti">
+    <span class="ti-i">HAIRCUT</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i g">SKIN FADE</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i">BEARD TRIM</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i">LOW FADE</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i g">MID FADE</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i">HIGH FADE</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i g">MIAMI STYLE</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i">HAIRCUT</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i g">SKIN FADE</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i">BEARD TRIM</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i">LOW FADE</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i g">MID FADE</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i">HIGH FADE</span><span class="ti-i"><span class="ti-dot"></span></span>
+    <span class="ti-i g">MIAMI STYLE</span>
+  </div>
+</div>
+
+<!-- SPECIAL OFFER -->
+<div class="offer-banner rev">
+  <div>
+    <div class="offer-text">MONTAGS SPECIAL</div>
+    <div class="offer-sub">Schüler & Studenten · Jeden Montag</div>
+  </div>
+  <div class="offer-price"><span>€</span>14</div>
+  <a href="#termin" class="btn-gold" style="align-self:center">Jetzt buchen →</a>
+</div>
+
+<!-- SERVICES -->
+<section class="sec sec-alt" id="services">
+  <div class="eyebrow rev">Services</div>
+  <h2 class="sec-h rev d1">UNSERE<br><span>LEISTUNGEN</span></h2>
+  <p class="sec-sub rev d2">Professionell. Präzise. Persönlich.</p>
+  <div class="svc-grid rev d3">
+    <div class="svc">
+      <span class="svc-icon">✂️</span>
+      <div class="svc-name">Haircut & Fade</div>
+      <div class="svc-desc">Klassischer Haarschnitt mit Fade — Low, Mid oder High. Präzise auf deinen Style abgestimmt.</div>
+      <div class="svc-price">ab 20 €</div>
+    </div>
+    <div class="svc featured">
+      <span class="svc-icon">⭐</span>
+      <div class="svc-name">Skin Fade</div>
+      <div class="svc-desc">Der perfekte Skin Fade — randlos, sauber, präzise. Unser Signature Look.</div>
+      <div class="svc-price">ab 25 €</div>
+    </div>
+    <div class="svc">
+      <span class="svc-icon">🧔</span>
+      <div class="svc-name">Beard Styling</div>
+      <div class="svc-desc">Bart trimmen, formen und pflegen. Von klassisch bis modern — wir machen deinen Bart perfekt.</div>
+      <div class="svc-price">ab 10 €</div>
+    </div>
+    <div class="svc">
+      <span class="svc-icon">💈</span>
+      <div class="svc-name">Haircut + Beard</div>
+      <div class="svc-desc">Komplett-Paket: Haarschnitt inklusive Bartpflege. Das volle Barbershop-Erlebnis.</div>
+      <div class="svc-price">ab 30 €</div>
+    </div>
+    <div class="svc">
+      <span class="svc-icon">🎓</span>
+      <div class="svc-name">Schüler & Studenten</div>
+      <div class="svc-desc">Jeden Montag — Haarschnitt zum Spezialpreis für Schüler und Studenten mit Ausweis.</div>
+      <div class="svc-price">14 € · Montags</div>
+    </div>
+    <div class="svc">
+      <span class="svc-icon">👦</span>
+      <div class="svc-name">Kids Cut</div>
+      <div class="svc-desc">Haarschnitt für Kinder — geduldig, sanft und mit dem richtigen Touch für die Kleinen.</div>
+      <div class="svc-price">auf Anfrage</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="sec sec-dark" id="termin">
+  <div class="eyebrow rev">Online Terminbuchung</div>
+  <h2 class="sec-h rev d1">TERMIN<br><span>BUCHEN</span></h2>
+  <div class="booking-wrap">
+    <div class="rev d2">
+      <div class="booking-title">Einfach.<br><span>Schnell.</span><br>Online.</div>
+      <div class="booking-steps">
+        <div class="b-step"><div class="b-num">01</div><div class="b-text"><strong>Tag wählen</strong> — Klick auf einen freien Tag im Kalender</div></div>
+        <div class="b-step"><div class="b-num">02</div><div class="b-text"><strong>Uhrzeit wählen</strong> — Wähle deinen Wunschtermin</div></div>
+        <div class="b-step"><div class="b-num">03</div><div class="b-text"><strong>Service & Daten</strong> — Was soll gemacht werden?</div></div>
+        <div class="b-step"><div class="b-num">04</div><div class="b-text"><strong>Bestätigen</strong> — Du bekommst eine Bestätigung</div></div>
+      </div>
+      <div style="padding:1.25rem;background:var(--gold-ll);border:.5px solid rgba(201,168,76,.2)">
+        <div style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem">Walk-ins</div>
+        <div style="font-size:12px;color:var(--t2)">Wir nehmen auch Walk-ins an — ruf kurz an um sicherzugehen dass wir Zeit haben.</div>
+        <div style="margin-top:.5rem"><a href="tel:064197296866" style="font-size:13px;color:var(--gold);text-decoration:none;font-weight:500">📞 064197296866</a></div>
+      </div>
+    </div>
+    <div class="rev d3">
+      <!-- CALENDAR -->
+      <div class="cal-widget">
+        <div class="cal-header">
+          <div class="cal-month" id="calMonth">April 2026</div>
+          <div class="cal-nav">
+            <button onclick="changeMonth(-1)">‹</button>
+            <button onclick="changeMonth(1)">›</button>
+          </div>
+        </div>
+        <div class="cal-days">
+          <div class="cal-day-label">Mo</div><div class="cal-day-label">Di</div>
+          <div class="cal-day-label">Mi</div><div class="cal-day-label">Do</div>
+          <div class="cal-day-label">Fr</div><div class="cal-day-label">Sa</div>
+          <div class="cal-day-label" style="color:rgba(245,240,232,.15)">So</div>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+
+        <!-- TIME SLOTS -->
+        <div class="time-wrap" id="timeWrap" style="display:none">
+          <div class="time-label">Uhrzeit wählen — <span id="selectedDateLabel"></span></div>
+          <div class="time-grid" id="timeGrid"></div>
+        </div>
+
+        <!-- FORM -->
+        <div class="book-form" id="bookForm" style="display:none">
+          <select class="form-select" id="serviceSelect">
+            <option value="">Service wählen...</option>
+            <option>Haircut & Fade — ab 20 €</option>
+            <option>Skin Fade — ab 25 €</option>
+            <option>Beard Styling — ab 10 €</option>
+            <option>Haircut + Beard — ab 30 €</option>
+            <option>Schüler / Student — 14 € (Montags)</option>
+            <option>Kids Cut — Anfrage</option>
+          </select>
+          <div class="form-row">
+            <input class="form-input" id="nameInput" placeholder="Dein Name" type="text">
+            <input class="form-input" id="telInput" placeholder="Telefon" type="tel">
+          </div>
+          <button class="book-btn" onclick="bookAppointment()">Termin bestätigen →</button>
+          <div class="book-note">Du erhältst eine Bestätigung per Telefon</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="sec" id="galerie">
+  <div class="eyebrow rev">Instagram</div>
+  <h2 class="sec-h rev d1">UNSERE<br><span>ARBEITEN</span></h2>
+  <p class="sec-sub rev d2">Folge uns auf Instagram für die neuesten Styles und Cuts.</p>
+  <div class="ig-grid rev d3">
+    <!-- Placeholder posts — in reality embed via Instagram Basic API -->
+    <div class="ig-item"><div class="ig-placeholder">✂️</div><div class="ig-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div></div>
+    <div class="ig-item"><div class="ig-placeholder">💈</div><div class="ig-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div></div>
+    <div class="ig-item"><div class="ig-placeholder">🧔</div><div class="ig-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div></div>
+    <div class="ig-item"><div class="ig-placeholder">✂️</div><div class="ig-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div></div>
+    <div class="ig-item"><div class="ig-placeholder">💈</div><div class="ig-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div></div>
+    <div class="ig-item"><div class="ig-placeholder">🧔</div><div class="ig-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div></div>
+  </div>
+  <div class="ig-follow rev d3">
+    <a href="https://www.instagram.com/miami_friseur/" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:var(--gold)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      @miami_friseur folgen
+    </a>
+    <span class="ig-count">39.000 Follower</span>
+  </div>
+</section>
+
+<!-- KONTAKT & MAP -->
+<section class="sec sec-alt" id="kontakt">
+  <div class="eyebrow rev">Kontakt & Anfahrt</div>
+  <h2 class="sec-h rev d1">KOMM<br><span>VORBEI</span></h2>
+  <div class="info-grid rev d3">
+    <div class="info-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2528.8!2d8.6766!3d50.5841!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bc4c3e0a0a0a0b%3A0x0!2sNeuen%20B%C3%A4ue%2013%2C%2035390%20Gie%C3%9Fen!5e0!3m2!1sde!2sde!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <div class="info-details">
+      <div class="info-item">
+        <div class="info-label">Adresse</div>
+        <div class="info-val">Neuen Bäue 13<br>35390 Gießen</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Telefon</div>
+        <div class="info-val"><a href="tel:064197296866">064197296866</a></div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Instagram</div>
+        <div class="info-val"><a href="https://www.instagram.com/miami_friseur/" target="_blank">@miami_friseur</a></div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Öffnungszeiten</div>
+        <div class="hours-grid">
+          <div class="hour-row"><span class="day">Mo</span><span>09:00 – 18:00</span></div>
+          <div class="hour-row"><span class="day">Di</span><span>09:00 – 18:00</span></div>
+          <div class="hour-row"><span class="day">Mi</span><span>09:00 – 18:00</span></div>
+          <div class="hour-row"><span class="day">Do</span><span>09:00 – 18:00</span></div>
+          <div class="hour-row"><span class="day">Fr</span><span>09:00 – 18:00</span></div>
+          <div class="hour-row"><span class="day">Sa</span><span>09:00 – 16:00</span></div>
+          <div class="hour-row"><span class="day">So</span><span class="closed-badge">Geschlossen</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="f-logo">MIAMI <span>FRISEUR</span></div>
+      <div class="f-desc">Professioneller Barbershop in Gießen.<br>Neuen Bäue 13 · 35390 Gießen</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+      <div>
+        <div class="f-col-title">Services</div>
+        <div class="f-links">
+          <a href="#services">Haircut & Fade</a>
+          <a href="#services">Skin Fade</a>
+          <a href="#services">Beard Styling</a>
+          <a href="#services">Schüler Special</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Info</div>
+        <div class="f-links">
+          <a href="#termin">Termin buchen</a>
+          <a href="#galerie">Galerie</a>
+          <a href="#kontakt">Kontakt</a>
+          <a href="https://www.instagram.com/miami_friseur/" target="_blank">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Miami Friseur Gießen · Neuen Bäue 13 · 35390 Gießen</span>
+    <div style="display:flex;gap:1rem"><a href="#">Impressum</a><a href="#">Datenschutz</a></div>
+  </div>
+</footer>
+
+<script>
+// ── CALENDAR ──
+let viewYear=2026,viewMonth=3,selectedDate=null,selectedTime=null;
+const MONTHS=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+const TIMES=['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30'];
+const BOOKED=['10:00','12:30','14:00','15:30'];
+
+function renderCal(){
+  document.getElementById('calMonth').textContent=MONTHS[viewMonth]+' '+viewYear;
+  const grid=document.getElementById('calGrid');
+  const first=new Date(viewYear,viewMonth,1).getDay();
+  const days=new Date(viewYear,viewMonth+1,0).getDate();
+  const offset=first===0?6:first-1;
+  const today=new Date();
+  let html='';
+  for(let i=0;i<offset;i++)html+='<div class="cal-cell empty"></div>';
+  for(let d=1;d<=days;d++){
+    const date=new Date(viewYear,viewMonth,d);
+    const isSun=date.getDay()===0;
+    const isPast=date<new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    const isToday=d===today.getDate()&&viewMonth===today.getMonth()&&viewYear===today.getFullYear();
+    const isSel=selectedDate&&d===selectedDate.d&&viewMonth===selectedDate.m&&viewYear===selectedDate.y;
+    const cls=['cal-cell',isSun||isPast?'closed':'',isToday?'today':'',isSel?'selected':''].filter(Boolean).join(' ');
+    html+=`<div class="${cls}"${!isSun&&!isPast?` onclick="selectDate(${d},${viewMonth},${viewYear})"`:''}>${d}</div>`;
+  }
+  grid.innerHTML=html;
+}
+
+function selectDate(d,m,y){
+  selectedDate={d,m,y};selectedTime=null;
+  renderCal();
+  const date=new Date(y,m,d);
+  const days=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+  document.getElementById('selectedDateLabel').textContent=days[date.getDay()]+', '+d+'. '+MONTHS[m];
+  document.getElementById('timeWrap').style.display='block';
+  const tg=document.getElementById('timeGrid');
+  tg.innerHTML=TIMES.map(t=>`<div class="time-slot${BOOKED.includes(t)?' booked':''}" onclick="${BOOKED.includes(t)?'':'selectTime(\''+t+'\')'}">${t}</div>`).join('');
+  document.getElementById('bookForm').style.display='none';
+}
+
+function selectTime(t){
+  selectedTime=t;
+  document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
+  event.target.classList.add('selected');
+  document.getElementById('bookForm').style.display='flex';
+}
+
+function changeMonth(d){
+  viewMonth+=d;
+  if(viewMonth>11){viewMonth=0;viewYear++;}
+  if(viewMonth<0){viewMonth=11;viewYear--;}
+  selectedDate=null;selectedTime=null;
+  document.getElementById('timeWrap').style.display='none';
+  document.getElementById('bookForm').style.display='none';
+  renderCal();
+}
+
+function bookAppointment(){
+  const name=document.getElementById('nameInput').value.trim();
+  const tel=document.getElementById('telInput').value.trim();
+  const service=document.getElementById('serviceSelect').value;
+  if(!name||!tel||!service||!selectedDate||!selectedTime){showToast('Bitte alle Felder ausfüllen');return;}
+  const msg=`Termin bestätigt!\n${name} · ${selectedTime} Uhr\n${selectedDate.d}. ${MONTHS[selectedDate.m]} ${selectedDate.y}\n${service}`;
+  showToast('✓ Termin angefragt — wir melden uns!');
+  document.getElementById('nameInput').value='';
+  document.getElementById('telInput').value='';
+  document.getElementById('serviceSelect').value='';
+  document.getElementById('bookForm').style.display='none';
+  document.getElementById('timeWrap').style.display='none';
+  selectedDate=null;selectedTime=null;
+  renderCal();
+}
+
+renderCal();
+
+// ── TOAST ──
+let tt;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ── NAV ──
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('s',scrollY>60),{passive:true});
+
+// ── REVEAL ──
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('on');obs.unobserve(el.target);}});},{threshold:.1});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+
+// ── LOADER ──
+(function(){
+  const b=document.getElementById('lBar'),p=document.getElementById('lPct');
+  document.body.style.overflow='hidden';let v=0;
+  const t=setInterval(()=>{
+    v=Math.min(v+(v<65?Math.random()*4+2:v<88?Math.random()*2+.8:Math.random()*.5+.1),100);
+    b.style.width=v+'%';p.textContent=Math.floor(v)+'%';
+    if(v>=100){clearInterval(t);setTimeout(()=>{document.getElementById('loader').classList.add('out');document.body.style.overflow='';setTimeout(()=>document.getElementById('loader').style.display='none',1200);},500);}
+  },55);
+})();
+</script>
+</body>
+</html>
